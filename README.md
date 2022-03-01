@@ -7,3 +7,4 @@ and the output of the PWM module will be the input frequency.
 To Do Functionality :
 1. Attach Basys3 xdc constraints file
 2. Replace the testbench clock with the Basys3 100Mhz clock
+3. Rewrite the code to make it a sine wave approximation, as of 2/28 it simply is a toggle on and off
