@@ -8,10 +8,12 @@
 
 module testbench();
 
-SLOW_CLK SLOW_CLK(.clk(clk));
-PWM PWM(.clk(SLOW_CLK.slwCLK),.PWM(PWMOut));
+//SLOW_CLK SLOW_CLK(.clk(clk));
+DutyCycle(.index(),.DutyOut(DC));
+PWM PWM(.clk(clk),.PWM(PWMOut),.DUTY_CYCLE(DC));
 
 wire PWMOut;
+wire [0:31] DC;
 reg clk;
 initial begin
 clk = 0;
