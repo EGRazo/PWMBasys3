@@ -8,13 +8,14 @@
 
 module testbench();
 
-//SLOW_CLK SLOW_CLK(.clk(clk));
-DutyCycle(.index(),.DutyOut(DC));
-PWM PWM(.clk(clk),.PWM(PWMOut),.DUTY_CYCLE(DC));
-
 wire PWMOut;
 wire [0:31] DC;
 reg clk;
+
+//SLOW_CLK SLOW_CLK(.clk(clk));
+DutyCycle DutyCycle(.index(PWMOut),.DutyOut(DC));
+PWM PWM(.clk(clk),.PWMWave(PWMOut),.DUTY_CYCLE(DC));
+
 initial begin
 clk = 0;
 #2000 $finish;

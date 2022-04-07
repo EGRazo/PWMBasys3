@@ -118,9 +118,10 @@ SinLut[0] =-0.0357819;
 */
 
 module DutyCycle( input index,
-                    output [0 : 31] DutyOut);
+                    output reg [0 : 31] DutyOut);
                     
 reg [0 : 31] SinLut [ 0 : 120];
+reg [0 : 31] counter;
 
 initial begin
 SinLut[0] = 0;
@@ -224,6 +225,18 @@ SinLut[98] =0.136122;
 SinLut[99] =0.0790185;
 SinLut[100] =0.021654;
 SinLut[101] =0;
-
+counter = 32'b0;
 end
+
+always @(negedge index) begin
+  
+   if(counter == 32'd101) begin
+    counter = 32'd0;
+   end
+   else begin
+    counter = counter + 32'd1;
+   end
+    DutyOut = SinLut[counter];
+end
+
 endmodule

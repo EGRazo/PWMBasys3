@@ -29,8 +29,11 @@ always @(posedge clk) begin
 //Reference Counter    
     Counter <= Counter + 1'd1;
 //Comparator to toggle the PWM signal
-    if(DutyCycleCounter > Counter) begin
+    if(DutyCycleCounter >= Counter) begin
         PWMOut = 1'b1;
+    end
+    else begin 
+        PWMOut = 1'b0;
     end
     
 end
