@@ -1,27 +1,36 @@
-`timescale 1s / 1s
-//////////////////////////////////////////////////////////////////////////////////
-// Testbench for the PWM 
-// 1Mhz = 1000 seconds
-// 1Hz = 1 secconds
-//////////////////////////////////////////////////////////////////////////////////
+`timescale 1ns / 1ps
 
+/*
+
+input clk,
+                input [0 : 31] OCRA,
+                input [0 : 31] DC,
+                output reg PWM
+
+
+*/
 
 module testbench();
 
-SLOW_CLK SLOW_CLK(.clk(clk));
-PWM PWM(.clk(SLOW_CLK.slwCLK),.PWM(PWMOut));
+reg clk = 1'b0;
+wire pwmOut;
+reg [0 : 31] OCRA, DC;
 
-wire PWMOut;
-reg clk;
+PWM PWM (.clk(clk),.OCRA(OCRA),.DC(DC),.PWM(pwmOut));
+
+
 initial begin
-clk = 0;
-#2000 $finish;
+OCRA = 100; DC = 25;
+#250 OCRA = 100; 
+#100 DC = 100;
+#1000 DC = 50;
+
+
 end
+
 
 always begin
- #1 clk = ~clk;
+#1 clk = ~clk;
 end
-
-
 
 endmodule
