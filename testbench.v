@@ -1,11 +1,7 @@
-`timescale 1ns / 1ps
+`timescale 1ns / 1ns
 
 /*
-
-input clk,
-                input [0 : 31] OCRA,
-                input [0 : 31] DC,
-                output reg PWM
+Please refer to the readme file if there are any questions
 
 
 */
@@ -13,19 +9,17 @@ input clk,
 module testbench();
 
 reg clk = 1'b0;
-wire pwmOut;
+wire pwmOut, iFlagOut;
 reg [0 : 31] OCRA, DC;
+wire [0 : 31] MAX;
 
-PWM PWM (.clk(clk),.OCRA(OCRA),.DC(DC),.PWM(pwmOut));
-
+//PWM PWM (.clk(clk),.OCRA(OCRA),.DC(DC),.PWM(pwmOut));
+PWM PWM (.clk(clk),.DC(DC),.PWM(pwmOut),.MAX(MAX),.iFlag(iFlagOut));
+DutyCycle Duty (.indexFlag(iFlagOut),.DutyOut(MAX));
 
 initial begin
-OCRA = 100; DC = 25;
-#250 OCRA = 100; 
-#100 DC = 100;
-#1000 DC = 50;
-
-
+DC = 50;
+#5000 $finish;
 end
 
 
